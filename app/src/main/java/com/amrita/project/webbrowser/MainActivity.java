@@ -3,7 +3,10 @@ package com.amrita.project.webbrowser;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -11,7 +14,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
@@ -21,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
     WebView wv;
     EditText edit;
     ProgressBar pb;
-    Button go, forward, back, reload, clear;
+    ImageButton forward, back, reload;
+    Button clear;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,25 +55,29 @@ public class MainActivity extends AppCompatActivity {
         String home = "https://www.google.com";                     //home url
         wv.loadUrl(home);
 
-        go = (Button)findViewById(R.id.go);
-        forward = (Button)findViewById(R.id.forward);
-        back = (Button)findViewById(R.id.back);
-        reload = (Button)findViewById(R.id.reload);
+        //go = (Button)findViewById(R.id.go);
+        forward = (ImageButton)findViewById(R.id.forward);
+        back = (ImageButton)findViewById(R.id.back);
+        reload = (ImageButton)findViewById(R.id.reload);
         clear = (Button)findViewById(R.id.clear);
         pb = (ProgressBar)findViewById(R.id.progress);
 
-        go.setOnClickListener(new View.OnClickListener() {          //onClick listener for "go"
+        /*go.setOnClickListener(new View.OnClickListener() {          //onClick listener for "go"
             @Override
             public void onClick(View view) {
-                String url = edit.getText().toString();
-                if(!url.startsWith("https://"))                        //adding https if not typed
-                    url = "https://" + url;
-                wv.loadUrl(url);
+                String temp = edit.getText().toString();
+                String url = temp;
+                if(!temp.startsWith("https://"))                        //adding https if not typed
+                    url = "https://" + temp;
+                boolean val = Patterns.WEB_URL.matcher(url).matches();
+                if(val == false)
+                    wv.loadUrl("https://google.com/search?q=" + temp);
+                else wv.loadUrl(url);
 
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);    //instance of input method
                 imm.hideSoftInputFromWindow(edit.getWindowToken(),0);   //setting keyboard to hide
             }
-        });
+        });*/
 
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +107,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 wv.clearHistory();
+            }
+        });
+
+        edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {   //listener on the textEdit field
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                    //do what you want on the press of 'done'
+                    String temp = edit.getText().toString();
+                    String url = temp;
+                    if(!temp.startsWith("https://"))                        //adding https if not typed
+                        url = "https://" + temp;
+                    boolean val = Patterns.WEB_URL.matcher(url).matches();
+                    if(!val)
+                        wv.loadUrl("https://google.com/search?q=" + temp);
+                    else wv.loadUrl(url);
+
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);    //instance of input method
+                    imm.hideSoftInputFromWindow(edit.getWindowToken(),0);   //setting keyboard to hide
+                }
+                return false;
             }
         });
     }

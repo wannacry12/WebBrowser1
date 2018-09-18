@@ -10,24 +10,33 @@
 
     <LinearLayout
         android:id="@+id/top"
-        android:layout_weight="0.075"
-        android:weightSum="1"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_weight="0.075"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <EditText
             android:id="@+id/bar"
-            android:layout_weight="0.8"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-
-        <Button
-            android:id="@+id/go"
-            android:layout_weight="0.2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="GO"/>
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="0.95"
+            android:background="@drawable/border"
+            android:imeOptions="actionGo"
+            android:inputType="text"
+            android:paddingLeft="10dp" />
+
+        <ImageButton
+            style="@style/Widget.AppCompat.ButtonBar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.05"
+            android:baselineAlignBottom="true"
+            android:src="@drawable/ic_menu_black_24dp" />
+
 
     </LinearLayout>
 
@@ -53,29 +62,33 @@
         android:layout_height="0dp"
         android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             android:id="@+id/back"
             android:layout_weight="0.25"
             style="@style/Widget.AppCompat.ButtonBar"
+            android:src="@drawable/ic_arrow_back_black_24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="&lt;---" />
+            />
 
-        <Button
+        <ImageButton
             android:id="@+id/forward"
             android:layout_weight="0.25"
+            android:src="@drawable/ic_arrow_forward_black_24dp"
+
             android:layout_width="wrap_content"
             style="@style/Widget.AppCompat.ButtonBar"
             android:layout_height="wrap_content"
-            android:text="---&gt;" />
+             />
 
-        <Button
+        <ImageButton
             android:id="@+id/reload"
             android:layout_weight="0.25"
+            android:src="@drawable/ic_refresh_black_24dp"
             style="@style/Widget.AppCompat.ButtonBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="reload" />
+             />
 
         <Button
             android:id="@+id/clear"
