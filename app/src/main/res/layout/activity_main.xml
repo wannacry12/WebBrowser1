@@ -26,16 +26,20 @@
             android:layout_weight="0.95"
             android:background="@drawable/border"
             android:imeOptions="actionGo"
-            android:inputType="text"
-            android:paddingLeft="10dp" />
+            android:inputType="textNoSuggestions"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
 
         <ImageButton
+            android:id="@+id/option"
             style="@style/Widget.AppCompat.ButtonBar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.05"
             android:baselineAlignBottom="true"
-            android:src="@drawable/ic_menu_black_24dp" />
+            android:src="@drawable/ic_more_vert_black_24dp"
+            android:onClick="showPopup"
+            />
 
 
     </LinearLayout>
